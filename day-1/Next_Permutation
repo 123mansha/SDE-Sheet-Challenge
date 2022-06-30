@@ -1,0 +1,32 @@
+//eg: [1 , 3 , 5 , 4 , 2]--->[1,4,2,3,5]
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums.length == 0 || nums.length <=1)
+            return;
+        int i = nums.length-2;//starting from second last becos that's where we will get the break point
+        //we can't get the break point at the last index
+        while(i>=0 && nums[i]>=nums[i+1])
+            i--;
+        if(i>=0)
+        {
+            //traversing from the back as we know the seq from the last is in inc order and from the last
+            //the first elmnt which we get will be the smallest no larger than 3
+            int j = nums.length-1;
+            while(nums[j] <= nums[i])
+                j--;
+            swap(nums , i , j);
+        }
+        reverse(nums , i+1 , nums.length-1);
+    }
+    private void swap(int[] nums , int i , int j)
+    {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    private void reverse(int[] nums , int i ,int j)
+    {
+        while(i < j)
+            swap(nums , i++ ,j--);
+    }
+}
