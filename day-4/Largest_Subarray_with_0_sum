@@ -1,0 +1,27 @@
+class GfG
+{
+    int maxLen(int arr[], int n)
+    {
+        // Your code here
+        HashMap<Integer , Integer> memo = new HashMap<>();
+        int prefSum = 0 ;
+        int answer = 0 ;
+        
+        memo.put(prefSum , -1);
+        
+        for(int i = 0 ; i < n ; i++)
+        {
+            int currVal = arr[i];
+            prefSum += currVal;
+            
+            if(memo.containsKey(prefSum))
+            {
+                int temp = i - memo.get(prefSum);
+                answer = Math.max(answer , temp);
+            }
+            else
+                memo.put(prefSum , i );
+        }
+        return answer;
+    }
+}
