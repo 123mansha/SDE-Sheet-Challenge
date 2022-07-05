@@ -1,0 +1,84 @@
+1)
+class Solution {
+    private int getLen(ListNode head){
+        int count = 0 ;
+        while(head != null)
+        {
+            head = head.next;
+            count++;
+        }
+        return count;
+    }
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        
+        int len = getLen(head);
+        
+        if(len == n)
+            return head.next;
+        
+        int count = len - n ;
+        ListNode temp = head;
+        while(count > 1)
+        {
+            temp = temp.next;
+            count--;
+        }
+        
+        temp.next = temp.next.next;
+        return head;
+    }
+}
+_______________________________________________________________________________________________________________________________________________________
+2)class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = reverseList(head);
+        //head ko dummyNode pr shift krdiya hai
+        head = dummyNode;
+        ListNode curr = head;
+        System.out.println(curr.val);
+        ListNode prev = null;
+        
+        for(int i = 0 ; i< n; i++)
+        {
+            prev = curr ;
+            curr = curr.next;
+        }
+        prev.next = curr.next;
+        return reverseList(head.next);
+    }
+    public ListNode reverseList(ListNode head){
+        
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while(curr != null){
+            ListNode temp = curr.next;
+            curr.next = prev ;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+}
+______________________________________________________________________________________________________________________________
+3)class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode start = new ListNode();
+        start.next = head;
+        ListNode fast = start;
+        ListNode slow = start;
+        
+        for(int i = 0 ; i < n ; i++)
+            fast = fast.next;
+        
+        while(fast.next!= null)
+        {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        slow.next = slow.next.next;
+        return start.next;
+    }
+}
