@@ -1,0 +1,41 @@
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        HashSet<ListNode>set = new HashSet<>();
+        
+        ListNode ptr = head;
+        
+        while(ptr!=null){
+            if(set.contains(ptr))
+                return true;
+            set.add(ptr);
+            ptr = ptr.next;
+        }
+        return false;
+    }
+}
+_______________________________________________
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        
+        if(head == null || head.next == null)
+            return false ;
+        
+        ListNode fastPtr =head ;
+        ListNode slowPtr =head ;
+        
+        while(fastPtr.next != null &&
+            fastPtr.next.next != null )
+        {
+            fastPtr = fastPtr.next.next ;
+            slowPtr = slowPtr.next ;
+            
+            if(fastPtr == slowPtr) 
+            //if(fastPtr.val == slowPtr.val) 
+            //will give wrong ans in case                     
+          //like [1,1,1,1]
+                return true;
+        }
+        
+        return false;
+    }
+}
