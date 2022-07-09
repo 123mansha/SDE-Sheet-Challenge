@@ -1,0 +1,104 @@
+class Solution {
+    public int trap(int[] height) {
+        int waterTrapped =0;
+        for(int  i = 0 ; i < height.length ; i++)
+        {
+            int maxLeft = 0 ;
+            int maxRight = 0;
+            
+            for(int j= i-1 ;j>=0 ;j--)
+                maxLeft = Math.max(maxLeft , height[j]);
+            
+            for(int j = i+1 ; j<height.length ; j++)
+                maxRight = Math.max(maxRight , height[j]);
+            
+            waterTrapped += (Math.max(Math.min(maxLeft , maxRight) - height[i] , 0));
+        }
+        return waterTrapped;
+    }
+}
+________________________________________________________________________________________________________
+class Solution {
+    public int trap(int[] height) {
+        int maxStart = 0 ;
+        int start[] = new int[height.length];
+        for(int i = 0 ; i < start.length ; i++)
+        {
+            if(maxStart < height[i])
+                maxStart = height[i];
+            
+            start[i] = maxStart;
+        }
+        
+        int maxEnd = 0 ;
+        int end[] = new int[height.length];
+        for(int i = height.length-1 ; i>=0 ; i--)
+        {
+            if(maxEnd < height[i])
+                maxEnd = height[i];
+            
+            end[i] = maxEnd;
+        }
+        
+        int waterTrapped= 0;
+        for(int i = 0 ; i < height.length ;i++)
+            waterTrapped += Math.min(start[i],end[i])-height[i];
+        
+        return waterTrapped;
+    }
+}
+____________________________________________________________________________________________
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length;
+        int left = 0 , right = n-1;
+        int res= 0 ;
+        int leftMax = 0 , rightMax = 0;
+        
+        while(left <= right)
+        {
+            if(height[left] <= height[right])
+            {
+                if(height[left] >= leftMax)
+                    leftMax = height[left];
+                else
+                    res+=leftMax- height[left];
+            left++;
+            }
+            else
+            {    
+                if(height[right] >= rightMax)
+                    rightMax = height[right];
+                else
+                    res+=rightMax- height[right];
+            right--;
+            }
+        }
+        return res;
+    }
+}
+
+class Solution {
+    public int trap(int[] height) {
+        int l = 0 ;
+        int r = height.length-1 ;
+        int lMax = 0 , rMax = 0;
+        int ans =0 ;
+        
+        while(l<r)
+        {
+            lMax = Math.max(lMax , height[l]);
+            rMax = Math.max(rMax , height[r]);
+            
+            if(lMax < rMax){
+                ans += lMax-height[l];
+                l++;
+            }
+            else{
+                ans+=rMax-height[r];
+                r--;
+            }
+        }
+        return ans;
+    }
+}
